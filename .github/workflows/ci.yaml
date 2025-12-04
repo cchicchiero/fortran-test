@@ -1,0 +1,22 @@
+name: Fortran CI
+
+on:
+  push:
+    branches: [ ci-test ]
+  pull_request:
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+ 
+    - name: Install gfortran
+      run: sudo apt-get update && sudo apt-get install -y gfortran
+
+    - name: Compile
+      run: gfortran main.F90 -o program
+
+    - name: Run
+      run: ./program
